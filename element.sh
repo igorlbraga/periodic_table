@@ -13,10 +13,10 @@ fi
 if [[ $1 =~ ^[0-9]+$ ]]
 then
   # Input is atomic number
-  QUERY_CONDITION="atomic_number=$1"
+  QUERY_CONDITION="e.atomic_number=$1"
 else
   # Input is symbol or name
-  QUERY_CONDITION="symbol='$1' OR name='$1'"
+  QUERY_CONDITION="e.symbol='$1' OR e.name='$1'"
 fi
 
 # Query the database
@@ -29,7 +29,7 @@ WHERE $QUERY_CONDITION")
 # Check if element was found
 if [[ -z $RESULT ]]
 then
-  echo "I could not find that element in the database." 
+  echo "I could not find that element in the database."
 else
   # Parse the result
   IFS="|" read ATOMIC_NUMBER NAME SYMBOL TYPE MASS MELTING BOILING <<< "$RESULT"
